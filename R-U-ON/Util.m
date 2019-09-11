@@ -9,12 +9,7 @@
 #import "Util.h"
 
 NSString *urlencode(NSString * url) {
-    return (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(
-            NULL,
-            (__bridge CFStringRef)url,
-            NULL,
-            (__bridge CFStringRef)@"!*'();:@&=+$,/?%#[]",
-            kCFStringEncodingUTF8 );
+    return [url stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:@"!*'();:@&=+$,/?%#[]"]];
 }
 
 

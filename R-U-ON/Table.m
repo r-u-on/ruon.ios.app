@@ -59,39 +59,34 @@
                    RSSBASE, _type, [Settings get:@"accountid"]]];
     NSURLRequest *req = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60];
     
-    [NSURLConnection sendAsynchronousRequest:req queue:[[NSOperationQueue alloc] init]
-       completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
-
-           NSHTTPURLResponse *http = (NSHTTPURLResponse*)response;
-           NSInteger code = [http statusCode];
-           
-           dispatch_async(dispatch_get_main_queue(), ^{
-               if (error) {
-                   [self refreshFailed:error.localizedDescription dialog:YES];
-               } else if (code!=200) {
-                   [self refreshFailed:[NSString stringWithFormat:@"%@ %d", @"HTTP Error ", (int)code] dialog:NO];
-               } else {
-                   if (data) {
-                       [self refreshOkay:data];
-                   } else {
-                       [self refreshFailed:@"Login Failed" dialog:NO];
-                   }
-               }
-           });
-        }
-    ];
+    [NSURLSession.sharedSession dataTaskWithRequest:req completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSHTTPURLResponse *http = (NSHTTPURLResponse*)response;
+        NSInteger code = [http statusCode];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (error) {
+                [self refreshFailed:error.localizedDescription dialog:YES];
+            } else if (code!=200) {
+                [self refreshFailed:[NSString stringWithFormat:@"%@ %d", @"HTTP Error ", (int)code] dialog:NO];
+            } else {
+                if (data) {
+                    [self refreshOkay:data];
+                } else {
+                    [self refreshFailed:@"Login Failed" dialog:NO];
+                }
+            }
+        });
+    }];
 }
 
 -(void) refreshFailed:(NSString*)err dialog:(BOOL) dialog {
     feed = [Feed feedWithError:err];
     [self.tableView reloadData];
     if (dialog) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Fetch Failed"
-                                                        message:err
-                                                       delegate:nil
-                                              cancelButtonTitle:@"Close"
-                                              otherButtonTitles:nil];
-        [alert show];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Fetch Failed" message:err preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *closeAction = [UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleCancel handler:nil];
+        [alertController addAction:closeAction];
+        [self presentViewController:alertController animated:YES completion:nil];
     }
 }
 
