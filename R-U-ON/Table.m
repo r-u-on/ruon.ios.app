@@ -59,7 +59,7 @@
                    RSSBASE, _type, [Settings get:@"accountid"]]];
     NSURLRequest *req = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60];
     
-    [NSURLSession.sharedSession dataTaskWithRequest:req completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    [[NSURLSession.sharedSession dataTaskWithRequest:req completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *http = (NSHTTPURLResponse*)response;
         NSInteger code = [http statusCode];
         
@@ -76,7 +76,7 @@
                 }
             }
         });
-    }];
+    }] resume];
 }
 
 -(void) refreshFailed:(NSString*)err dialog:(BOOL) dialog {

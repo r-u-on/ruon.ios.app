@@ -77,7 +77,7 @@
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/resolveGUID?email=%@&password=%@", WWWBASE, urlencode(_email.text), urlencode(_password.text)]];
     NSURLRequest *req = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60];
     
-    [NSURLSession.sharedSession dataTaskWithRequest:req completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    [[NSURLSession.sharedSession dataTaskWithRequest:req completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (error) {
                 [self loginFailed:@"Can't reach the R-U-ON Server"];
@@ -90,9 +90,9 @@
                 } else {
                     [self loginFailed:@"Login Failed"];
                 }
-           }
+            }
         });
-    }];
+    }] resume];
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{

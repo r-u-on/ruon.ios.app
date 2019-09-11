@@ -21,8 +21,7 @@
 		774609BB1874A54A00228D4B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 774609B91874A54A00228D4B /* InfoPlist.strings */; };
 		774609BD1874A54A00228D4B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 774609BC1874A54A00228D4B /* main.m */; };
 		774609C11874A54A00228D4B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 774609C01874A54A00228D4B /* AppDelegate.m */; };
-		774609C41874A54A00228D4B /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 774609C21874A54A00228D4B /* Main_iPhone.storyboard */; };
-		774609C71874A54A00228D4B /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 774609C51874A54A00228D4B /* Main_iPad.storyboard */; };
+		774609C41874A54A00228D4B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 774609C21874A54A00228D4B /* Main.storyboard */; };
 		774609CF1874A54A00228D4B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 774609CE1874A54A00228D4B /* Images.xcassets */; };
 		774609D61874A54A00228D4B /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 774609D51874A54A00228D4B /* XCTest.framework */; };
 		774609D71874A54A00228D4B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 774609B01874A54A00228D4B /* Foundation.framework */; };
@@ -102,8 +101,7 @@
 		774609BE1874A54A00228D4B /* R-U-ON-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "R-U-ON-Prefix.pch"; sourceTree = "<group>"; };
 		774609BF1874A54A00228D4B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		774609C01874A54A00228D4B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		774609C31874A54A00228D4B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		774609C61874A54A00228D4B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		774609C31874A54A00228D4B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		774609CE1874A54A00228D4B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		774609D41874A54A00228D4B /* R-U-ONTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "R-U-ONTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		774609D51874A54A00228D4B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -215,8 +213,7 @@
 				774609BF1874A54A00228D4B /* AppDelegate.h */,
 				774609C01874A54A00228D4B /* AppDelegate.m */,
 				7B05F8472328DF290008FE8B /* LaunchScreen.storyboard */,
-				774609C21874A54A00228D4B /* Main_iPhone.storyboard */,
-				774609C51874A54A00228D4B /* Main_iPad.storyboard */,
+				774609C21874A54A00228D4B /* Main.storyboard */,
 				77EA648018867E2600A28401 /* Splash.h */,
 				77EA648118867E2600A28401 /* Splash.m */,
 				774E1FBC1874ABBA007F7988 /* LoginView.h */,
@@ -357,7 +354,7 @@
 				ORGANIZATIONNAME = ruon;
 				TargetAttributes = {
 					774609AC1874A54A00228D4B = {
-						DevelopmentTeam = Q744FBMTB9;
+						DevelopmentTeam = LWXCT592NE;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
@@ -402,7 +399,6 @@
 				779F85811AE991F8003FE76C /* dcprd.caf in Resources */,
 				779F857E1AE991F8003FE76C /* dcagd.caf in Resources */,
 				779F85851AE991F8003FE76C /* dmhdd.caf in Resources */,
-				774609C71874A54A00228D4B /* Main_iPad.storyboard in Resources */,
 				779F858A1AE991F8003FE76C /* emagr.caf in Resources */,
 				779F85841AE991F8003FE76C /* dmgen.caf in Resources */,
 				77E6CC6D1AF4CCCA002E8D38 /* dmacs.caf in Resources */,
@@ -419,7 +415,7 @@
 				77B1BDE51876BF2F00D45F9E /* Settings.bundle in Resources */,
 				779F85931AE991F8003FE76C /* umhdd.caf in Resources */,
 				779F857F1AE991F8003FE76C /* dccnc.caf in Resources */,
-				774609C41874A54A00228D4B /* Main_iPhone.storyboard in Resources */,
+				774609C41874A54A00228D4B /* Main.storyboard in Resources */,
 				779F858F1AE991F8003FE76C /* ucprd.caf in Resources */,
 				779F85881AE991F8003FE76C /* ecgen.caf in Resources */,
 				779F858E1AE991F8003FE76C /* ucgen.caf in Resources */,
@@ -494,20 +490,12 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		774609C21874A54A00228D4B /* Main_iPhone.storyboard */ = {
+		774609C21874A54A00228D4B /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				774609C31874A54A00228D4B /* Base */,
 			);
-			name = Main_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		774609C51874A54A00228D4B /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				774609C61874A54A00228D4B /* Base */,
-			);
-			name = Main_iPad.storyboard;
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		774609DE1874A54A00228D4B /* InfoPlist.strings */ = {
@@ -630,7 +618,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CODE_SIGN_ENTITLEMENTS = "R-U-ON/R-U-ON.entitlements";
-				DEVELOPMENT_TEAM = Q744FBMTB9;
+				DEVELOPMENT_TEAM = LWXCT592NE;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "R-U-ON/R-U-ON-Prefix.pch";
 				INFOPLIST_FILE = "R-U-ON/R-U-ON-Info.plist";
@@ -647,7 +635,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CODE_SIGN_ENTITLEMENTS = "R-U-ON/R-U-ON.entitlements";
-				DEVELOPMENT_TEAM = Q744FBMTB9;
+				DEVELOPMENT_TEAM = LWXCT592NE;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "R-U-ON/R-U-ON-Prefix.pch";
 				INFOPLIST_FILE = "R-U-ON/R-U-ON-Info.plist";
