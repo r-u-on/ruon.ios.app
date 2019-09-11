@@ -4,6 +4,6 @@
 
 @interface DetailViewController : UITableViewController 
 
--(DetailViewController*)initWithData:(NSDictionary*)record type:(NSString*)type;
+- (void)bindWitRecord:(NSDictionary*)record type:(NSString*)type;
 
 @end

@@ -14,11 +14,24 @@
         <scene sceneID="ccG-BC-Pjp">
             <objects>
                 <tableViewController id="R5T-Et-qIw" customClass="TicketsTable" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="lNh-pE-FeC">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="lNh-pE-FeC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ItemCell" id="pWm-IJ-ZVt" customClass="Cell">
+                                <rect key="frame" x="0.0" y="22" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pWm-IJ-ZVt" id="1Ny-AD-5Gw">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="zEj-UG-IMa" kind="show" identifier="showDetailSegue" id="dvo-E8-s1K"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
                         <sections/>
                     </tableView>
                     <navigationItem key="navigationItem" title="Tickets" id="5pv-Fg-1rT"/>
@@ -231,11 +244,24 @@
         <scene sceneID="Kmq-aB-zKe">
             <objects>
                 <tableViewController id="K1I-nL-aag" customClass="AlarmsTable" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="ndj-lV-Bdy">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="ndj-lV-Bdy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ItemCell" id="k11-vG-yeg" customClass="Cell">
+                                <rect key="frame" x="0.0" y="22" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="k11-vG-yeg" id="BqA-ds-cV3">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="zEj-UG-IMa" kind="show" identifier="showDetailSegue" id="CFP-Jt-S6k"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
                         <sections/>
                     </tableView>
                     <navigationItem key="navigationItem" title="Alarms" id="WOV-1p-Dzz"/>
@@ -243,6 +269,37 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JAq-cD-In7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="936" y="-56.671664167916049"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="Njh-ec-HS4">
+            <objects>
+                <tableViewController id="zEj-UG-IMa" customClass="DetailViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="35" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="eAy-IX-0U4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <connections>
+                            <outlet property="dataSource" destination="zEj-UG-IMa" id="Juf-2z-BKz"/>
+                            <outlet property="delegate" destination="zEj-UG-IMa" id="d8I-C7-RKm"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="CZt-f8-dJl">
+                        <barButtonItem key="rightBarButtonItem" id="Irg-Gg-pLI">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8hQ-hO-kO9">
+                                <rect key="frame" x="324" y="4.6666666666666679" width="35" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="safari-icon"/>
+                                <connections>
+                                    <action selector="toBrowser:" destination="zEj-UG-IMa" eventType="touchUpInside" id="jdJ-f9-nsy"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vYf-P8-19v" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2250" y="-236"/>
         </scene>
         <!--Alarms-->
         <scene sceneID="2BT-AP-frt">
@@ -266,11 +323,24 @@
         <scene sceneID="qKB-rf-Uey">
             <objects>
                 <tableViewController id="C4L-2c-wKu" customClass="AgentsTable" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="eSf-Cj-dbS">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="eSf-Cj-dbS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ItemCell" id="Rzz-ia-GFG" customClass="Cell">
+                                <rect key="frame" x="0.0" y="22" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Rzz-ia-GFG" id="GIp-gU-VJt">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="zEj-UG-IMa" kind="show" identifier="showDetailSegue" id="Y8i-qF-pZS"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
                         <sections/>
                     </tableView>
                     <navigationItem key="navigationItem" title="Agents" id="fim-2O-Knm"/>
@@ -302,9 +372,11 @@
         <image name="agents-icon" width="30" height="30"/>
         <image name="alarms-icon" width="30" height="30"/>
         <image name="logo" width="71" height="32"/>
+        <image name="safari-icon" width="35" height="35"/>
         <image name="tickets-icon" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="Y8i-qF-pZS"/>
         <segue reference="bva-06-c0d"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.53725490200000003" green="0.68627450980000004" blue="0.33725490200000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

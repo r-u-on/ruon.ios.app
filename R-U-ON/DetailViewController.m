@@ -85,32 +85,11 @@ NSString *target(NSString *uri) {
 	}
 }
 
--(DetailViewController*)initWithData:(NSDictionary*)record type:(NSString*)type {
-	
-	self = [self initWithStyle:UITableViewStyleGrouped];
-	if (self) {
-		meta = [metaData() objectForKey:type];
-		data = record;
-		[self setTitle:[self getData:[meta objectAtIndex:0]]];
-		
-		UIImage *safari = [UIImage imageNamed:@"safari-icon.png"];
-		CGRect rect = {{0,0},{safari.size.width, safari.size.height}};
-		UIButton *button = [[UIButton alloc]initWithFrame:rect];
-		[button setImage:safari forState:UIControlStateNormal];
-		[button setShowsTouchWhenHighlighted:YES];
-		[button addTarget:self action:@selector(toBrowser:) forControlEvents:UIControlEventTouchDown];
-		
-		
-//		UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithImage:safari style:UIBarButtonItemStylePlain target:self action:@selector(toBrowser:)];
-//		[item setWidth:-20];
-		
-		UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:button];
-		[[self navigationItem] setRightBarButtonItem:item];
-		[[self tableView] setRowHeight:ROW_HEIGHT];
-        UIEdgeInsets ei = {0,0,0,0};
-		[[self tableView] setSeparatorInset:ei];
-	}
-	return self;
+- (void)bindWitRecord:(NSDictionary*)record type:(NSString*)type
+{
+    meta = [metaData() objectForKey:type];
+    data = record;
+    self.title = [self getData:[meta objectAtIndex:0]];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -196,19 +175,9 @@ NSString *target(NSString *uri) {
 	return cell;
 }
 
-- (void) setNeedDisplay {
-   [[self tableView] reloadData];
-}
-
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	
 	return [self getData:[[meta objectAtIndex:section+1] objectAtIndex:0]];
 }
-
-
-
-
-
-
 
 @end

@@ -16,13 +16,15 @@
 #import "Tabs.h"
 #define ROW_HEIGHT 60
 
+NSString *const showDetailSegueIdentifier = @"showDetailSegue";
+NSString *const cellIdentifier = @"ItemCell";
+
 @implementation Table {
     UIRefreshControl *refresh;
     UIView *firstRefresh;
     Feed *feed;
     BOOL showGroups;
 }
-
 
 -(void) viewDidLoad {
     [super viewDidLoad];
@@ -121,24 +123,48 @@
     }
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-	NSDictionary *item;
-	int index = (int) [indexPath indexAtPosition: [indexPath length] - 1];
+- (nullable NSDictionary *)itemForSelectedIndexPath:(nullable NSIndexPath *)selectedIndexPath
+{
+    if (!selectedIndexPath)
+    {
+        return nil;
+    }
+    NSDictionary *item;
+    int index = (int) [selectedIndexPath indexAtPosition: [selectedIndexPath length] - 1];
     
-	if (showGroups) {
-		NSArray *groups = [feed groups];
-		Group *group = [groups objectAtIndex:[indexPath indexAtPosition:0]];
-		item = [[group items] objectAtIndex:index];
-	} else {
-		item = [feed objectAtIndex:index];
-	}
-    
-	if (![item objectForKey:@"usermessage"]) {
-		DetailViewController *detailViewController = [[DetailViewController alloc] initWithData:item type:_type] ;
-		[[self navigationController] pushViewController:detailViewController animated:YES];
-	}
+    if (showGroups) {
+        NSArray *groups = [feed groups];
+        Group *group = [groups objectAtIndex:[selectedIndexPath indexAtPosition:0]];
+        item = [[group items] objectAtIndex:index];
+    } else {
+        item = [feed objectAtIndex:index];
+    }
+    return ![item objectForKey:@"usermessage"] ? item : nil;
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:showDetailSegueIdentifier])
+    {
+        NSDictionary *item = [self itemForSelectedIndexPath:self.tableView.indexPathForSelectedRow];
+        if (item)
+        {
+            DetailViewController *detailViewController = segue.destinationViewController;
+            [detailViewController bindWitRecord:item type:_type];;
+        }
+    }
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [self itemForSelectedIndexPath:indexPath] != nil ? indexPath : nil;
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [self itemForSelectedIndexPath:indexPath] != nil;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	NSInteger sections = 1;
 	if (feed&&showGroups) {
@@ -184,12 +210,8 @@
 		item = [feed objectAtIndex:index];
 	}
 	
-	static NSString *cellIdentifier = @"ItemCell";
-	Cell *cell = (Cell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+	Cell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
 	
-	if (cell == nil) {
-		cell = [[Cell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-	}
 	[cell setData:item type:_type];
 	return cell;
 }
