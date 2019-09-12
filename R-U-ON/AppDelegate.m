@@ -14,20 +14,11 @@
 
 @implementation AppDelegate
 
-
 -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [Settings defaults];
     return YES;
 }
-
-
-- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
-{
-    //register to receive notifications
-    [application registerForRemoteNotifications];
-}
-
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 	NSLog(@"didRegisterForRemoteNotificationsWithDeviceToken");
@@ -39,15 +30,31 @@
 	NSLog(@"%@", [error localizedDescription]);
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
     NSString *badgeString =  [[userInfo objectForKey:@"aps"] objectForKey:@"badge"];
     if (badgeString!=nil) {
         application.applicationIconBadgeNumber = [badgeString intValue];
         [AlarmsTable startRefresh];
         [Tabs badgeUpdate];
-	}
+    }
+    
+    if( [UIApplication sharedApplication].applicationState == UIApplicationStateInactive )
+    {
+        NSLog( @"INACTIVE" );
+        completionHandler( UIBackgroundFetchResultNewData );
+    }
+    else if( [UIApplication sharedApplication].applicationState == UIApplicationStateBackground )
+    {
+        NSLog( @"BACKGROUND" );
+        completionHandler( UIBackgroundFetchResultNewData );
+    }
+    else
+    {
+        NSLog( @"FOREGROUND" );
+        completionHandler( UIBackgroundFetchResultNewData );
+    }
 }
-
 							
 - (void)applicationWillResignActive:(UIApplication *)application
 {

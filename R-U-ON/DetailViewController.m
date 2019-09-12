@@ -81,7 +81,7 @@ NSString *target(NSString *uri) {
                ];
         
         NSURL *url = [NSURL URLWithString:uri];
-        [[UIApplication sharedApplication] openURL:url];
+        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
 	}
 }
 
