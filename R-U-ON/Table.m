@@ -58,7 +58,6 @@ NSString *const cellIdentifier = @"ItemCell";
         NSInteger code = [http statusCode];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.refreshControl endRefreshing];
             if (error) {
                 [self refreshFailed:error.localizedDescription dialog:YES];
             } else if (code!=200) {
@@ -70,6 +69,7 @@ NSString *const cellIdentifier = @"ItemCell";
                     [self refreshFailed:@"Login Failed" dialog:NO];
                 }
             }
+            [self.refreshControl endRefreshing];
         });
     }] resume];
 }
