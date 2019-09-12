@@ -368,7 +368,7 @@
         <image name="tickets-icon" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Y8i-qF-pZS"/>
+        <segue reference="dvo-E8-s1K"/>
         <segue reference="wTR-gR-bMs"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.53725490200000003" green="0.68627450980000004" blue="0.33725490200000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

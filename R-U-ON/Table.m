@@ -20,8 +20,6 @@ NSString *const showDetailSegueIdentifier = @"showDetailSegue";
 NSString *const cellIdentifier = @"ItemCell";
 
 @implementation Table {
-    UIRefreshControl *refresh;
-    UIView *firstRefresh;
     Feed *feed;
     BOOL showGroups;
 }
@@ -29,14 +27,8 @@ NSString *const cellIdentifier = @"ItemCell";
 -(void) viewDidLoad {
     [super viewDidLoad];
     
-    // First refresh
-    UIActivityIndicatorView *ai = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    ai.color = [UIColor blackColor];
-    ai.frame = CGRectMake(self.view.frame.size.width/2, 31, 0, 0);
-    [self.view addSubview:ai];
-    ai.transform = CGAffineTransformMakeScale(0.77, 0.77);
-    [ai startAnimating];
-    firstRefresh = ai;
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     [self refresh];
     
 	// Logo
@@ -60,12 +52,13 @@ NSString *const cellIdentifier = @"ItemCell";
                   [NSString stringWithFormat:@"%@/rss%@?iphone&id=%@",
                    RSSBASE, _type, [Settings get:@"accountid"]]];
     NSURLRequest *req = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60];
-    
+    [self.refreshControl beginRefreshing];
     [[NSURLSession.sharedSession dataTaskWithRequest:req completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *http = (NSHTTPURLResponse*)response;
         NSInteger code = [http statusCode];
         
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self.refreshControl endRefreshing];
             if (error) {
                 [self refreshFailed:error.localizedDescription dialog:YES];
             } else if (code!=200) {
@@ -93,7 +86,6 @@ NSString *const cellIdentifier = @"ItemCell";
 }
 
 -(void) refreshOkay:(NSData*) data {
-    [self refreshDone];
     feed = [Feed load:data type:_type];
     [self.tableView reloadData];
     
@@ -110,17 +102,6 @@ NSString *const cellIdentifier = @"ItemCell";
         [UIApplication sharedApplication].applicationIconBadgeNumber = criticalMajorAlarms;
         [Tabs badgeUpdate];
 	}
-}
-
-
--(void) refreshDone {
-    if (self.refreshControl) {
-        [self.refreshControl endRefreshing];
-    } else {
-        [firstRefresh removeFromSuperview];
-        self.refreshControl = [[UIRefreshControl alloc] init];
-        [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
-    }
 }
 
 - (nullable NSDictionary *)itemForSelectedIndexPath:(nullable NSIndexPath *)selectedIndexPath
