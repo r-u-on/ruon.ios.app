@@ -62,21 +62,11 @@
         <scene sceneID="LY9-cV-nwe">
             <objects>
                 <viewController id="XQD-J3-eSc" customClass="Splash" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="38l-rH-S9e">
+                    <imageView key="view" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchiPhone" id="8OO-Xl-Eat">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="OgJ-6H-R3q">
-                                <rect key="frame" x="152" y="395" width="71" height="32"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="OgJ-6H-R3q" firstAttribute="centerX" secondItem="cGy-Zc-pum" secondAttribute="centerX" id="OaJ-of-tHg"/>
-                            <constraint firstItem="OgJ-6H-R3q" firstAttribute="centerY" secondItem="cGy-Zc-pum" secondAttribute="centerY" id="hUF-OS-NMB"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="cGy-Zc-pum"/>
-                    </view>
+                        <variation key="heightClass=regular-widthClass=regular" image="launchiPad"/>
+                    </imageView>
                     <connections>
                         <segue destination="0uo-XD-Tu5" kind="presentation" identifier="SplashToLogin" modalTransitionStyle="crossDissolve" id="chy-ND-qWn"/>
                         <segue destination="8YX-ce-x5E" kind="presentation" identifier="SplashToMain" modalTransitionStyle="crossDissolve" id="wTR-gR-bMs"/>
@@ -371,13 +361,15 @@
     <resources>
         <image name="agents-icon" width="30" height="30"/>
         <image name="alarms-icon" width="30" height="30"/>
+        <image name="launchiPad" width="512" height="682.66668701171875"/>
+        <image name="launchiPhone" width="213.33332824707031" height="378.66665649414062"/>
         <image name="logo" width="71" height="32"/>
         <image name="safari-icon" width="35" height="35"/>
         <image name="tickets-icon" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Y8i-qF-pZS"/>
-        <segue reference="bva-06-c0d"/>
+        <segue reference="wTR-gR-bMs"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.53725490200000003" green="0.68627450980000004" blue="0.33725490200000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
