@@ -11,8 +11,6 @@
 		771F75D81876FD080054159F /* Table.m in Sources */ = {isa = PBXBuildFile; fileRef = 771F75D71876FD080054159F /* Table.m */; };
 		771F75DD187889AA0054159F /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = 771F75DA187889AA0054159F /* Feed.m */; };
 		771F75DE187889AA0054159F /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 771F75DC187889AA0054159F /* Group.m */; };
-		771F75E6187897E10054159F /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 771F75E5187897E10054159F /* Cell.m */; };
-		771F75E9187898BE0054159F /* CellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 771F75E8187898BE0054159F /* CellView.m */; };
 		771F75EC187898D10054159F /* Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = 771F75EB187898D10054159F /* Colors.m */; };
 		771F75EF187943CD0054159F /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 771F75EE187943CD0054159F /* DetailViewController.m */; };
 		774609B11874A54A00228D4B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 774609B01874A54A00228D4B /* Foundation.framework */; };
@@ -62,6 +60,8 @@
 		77EA648218867E2600A28401 /* Splash.m in Sources */ = {isa = PBXBuildFile; fileRef = 77EA648118867E2600A28401 /* Splash.m */; };
 		7B05F8482328DF290008FE8B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B05F8472328DF290008FE8B /* LaunchScreen.storyboard */; };
 		9628D6D4232A98D700FC310B /* DetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9628D6D3232A98D700FC310B /* DetailTableViewCell.m */; };
+		965CC30F232E087200009B47 /* RuonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 965CC30D232E087200009B47 /* RuonTableViewCell.m */; };
+		965CC310232E087200009B47 /* RuonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 965CC30E232E087200009B47 /* RuonTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,10 +84,6 @@
 		771F75DA187889AA0054159F /* Feed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Feed.m; sourceTree = "<group>"; };
 		771F75DB187889AA0054159F /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
 		771F75DC187889AA0054159F /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
-		771F75E4187897E10054159F /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
-		771F75E5187897E10054159F /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = "<group>"; };
-		771F75E7187898BE0054159F /* CellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellView.h; sourceTree = "<group>"; };
-		771F75E8187898BE0054159F /* CellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellView.m; sourceTree = "<group>"; };
 		771F75EA187898D10054159F /* Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Colors.h; sourceTree = "<group>"; };
 		771F75EB187898D10054159F /* Colors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Colors.m; sourceTree = "<group>"; };
 		771F75ED187943CD0054159F /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
@@ -149,6 +145,9 @@
 		7B05F8472328DF290008FE8B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9628D6D2232A98D700FC310B /* DetailTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailTableViewCell.h; sourceTree = "<group>"; };
 		9628D6D3232A98D700FC310B /* DetailTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailTableViewCell.m; sourceTree = "<group>"; };
+		965CC30C232E087200009B47 /* RuonTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RuonTableViewCell.h; sourceTree = "<group>"; };
+		965CC30D232E087200009B47 /* RuonTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RuonTableViewCell.m; sourceTree = "<group>"; };
+		965CC30E232E087200009B47 /* RuonTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RuonTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,38 +210,37 @@
 				7705810D1DA97AAE006D7D95 /* R-U-ON.entitlements */,
 				779F85651AE991F8003FE76C /* Sounds */,
 				77B1BDE21876BF2F00D45F9E /* Settings.bundle */,
-				77B1BDE31876BF2F00D45F9E /* Settings.h */,
-				77B1BDE41876BF2F00D45F9E /* Settings.m */,
 				774609BF1874A54A00228D4B /* AppDelegate.h */,
 				774609C01874A54A00228D4B /* AppDelegate.m */,
-				7B05F8472328DF290008FE8B /* LaunchScreen.storyboard */,
-				774609C21874A54A00228D4B /* Main.storyboard */,
+				77B1BDE31876BF2F00D45F9E /* Settings.h */,
+				77B1BDE41876BF2F00D45F9E /* Settings.m */,
+				771F75EA187898D10054159F /* Colors.h */,
+				771F75EB187898D10054159F /* Colors.m */,
+				774E20061874B63F007F7988 /* Util.h */,
+				774E20071874B63F007F7988 /* Util.m */,
+				774DCC3E18D4E7B30077DD5D /* NotificationsRegister.h */,
+				774DCC3F18D4E7B30077DD5D /* NotificationsRegister.m */,
+				771F75D9187889AA0054159F /* Feed.h */,
+				771F75DA187889AA0054159F /* Feed.m */,
+				771F75DB187889AA0054159F /* Group.h */,
+				771F75DC187889AA0054159F /* Group.m */,
 				77EA648018867E2600A28401 /* Splash.h */,
 				77EA648118867E2600A28401 /* Splash.m */,
 				774E1FBC1874ABBA007F7988 /* LoginView.h */,
 				774E1FBD1874ABBA007F7988 /* LoginView.m */,
 				771F75CA1876E5CB0054159F /* Tabs.h */,
 				771F75CB1876E5CB0054159F /* Tabs.m */,
-				774E20061874B63F007F7988 /* Util.h */,
-				774E20071874B63F007F7988 /* Util.m */,
 				771F75D61876FD080054159F /* Table.h */,
 				771F75D71876FD080054159F /* Table.m */,
-				771F75D9187889AA0054159F /* Feed.h */,
-				771F75DA187889AA0054159F /* Feed.m */,
-				771F75DB187889AA0054159F /* Group.h */,
-				771F75DC187889AA0054159F /* Group.m */,
-				771F75E4187897E10054159F /* Cell.h */,
-				771F75E5187897E10054159F /* Cell.m */,
-				771F75E7187898BE0054159F /* CellView.h */,
-				771F75E8187898BE0054159F /* CellView.m */,
-				771F75EA187898D10054159F /* Colors.h */,
-				771F75EB187898D10054159F /* Colors.m */,
 				771F75ED187943CD0054159F /* DetailViewController.h */,
 				771F75EE187943CD0054159F /* DetailViewController.m */,
 				9628D6D2232A98D700FC310B /* DetailTableViewCell.h */,
 				9628D6D3232A98D700FC310B /* DetailTableViewCell.m */,
-				774DCC3E18D4E7B30077DD5D /* NotificationsRegister.h */,
-				774DCC3F18D4E7B30077DD5D /* NotificationsRegister.m */,
+				965CC30C232E087200009B47 /* RuonTableViewCell.h */,
+				965CC30D232E087200009B47 /* RuonTableViewCell.m */,
+				965CC30E232E087200009B47 /* RuonTableViewCell.xib */,
+				774609C21874A54A00228D4B /* Main.storyboard */,
+				7B05F8472328DF290008FE8B /* LaunchScreen.storyboard */,
 				774609CE1874A54A00228D4B /* Images.xcassets */,
 				774609B71874A54A00228D4B /* Supporting Files */,
 			);
@@ -414,6 +412,7 @@
 				779F85911AE991F8003FE76C /* umcpu.caf in Resources */,
 				779F858D1AE991F8003FE76C /* uccnc.caf in Resources */,
 				774609CF1874A54A00228D4B /* Images.xcassets in Resources */,
+				965CC310232E087200009B47 /* RuonTableViewCell.xib in Resources */,
 				779F85901AE991F8003FE76C /* uigen.caf in Resources */,
 				779F85941AE991F8003FE76C /* ummem.caf in Resources */,
 				779F85861AE991F8003FE76C /* dmmem.caf in Resources */,
@@ -451,14 +450,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				771F75EC187898D10054159F /* Colors.m in Sources */,
+				965CC30F232E087200009B47 /* RuonTableViewCell.m in Sources */,
 				77EA648218867E2600A28401 /* Splash.m in Sources */,
-				771F75E6187897E10054159F /* Cell.m in Sources */,
 				771F75DE187889AA0054159F /* Group.m in Sources */,
 				774609C11874A54A00228D4B /* AppDelegate.m in Sources */,
 				774E1FBE1874ABBA007F7988 /* LoginView.m in Sources */,
 				9628D6D4232A98D700FC310B /* DetailTableViewCell.m in Sources */,
 				774DCC4018D4E7B30077DD5D /* NotificationsRegister.m in Sources */,
-				771F75E9187898BE0054159F /* CellView.m in Sources */,
 				774609BD1874A54A00228D4B /* main.m in Sources */,
 				771F75CC1876E5CB0054159F /* Tabs.m in Sources */,
 				774E20081874B63F007F7988 /* Util.m in Sources */,

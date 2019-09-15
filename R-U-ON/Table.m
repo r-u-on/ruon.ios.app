@@ -11,13 +11,11 @@
 #import "Settings.h"
 #import "Feed.h"
 #import "Group.h"
-#import "Cell.h"
+#import "RuonTableViewCell.h"
 #import "DetailViewController.h"
 #import "Tabs.h"
-#define ROW_HEIGHT 60
 
 NSString *const showDetailSegueIdentifier = @"showDetailSegue";
-NSString *const cellIdentifier = @"ItemCell";
 
 @implementation Table {
     Feed *feed;
@@ -44,7 +42,7 @@ NSString *const cellIdentifier = @"ItemCell";
     } else {
         showGroups = [sgs boolValue];
     }
-	self.tableView.rowHeight = ROW_HEIGHT;
+    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([RuonTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([RuonTableViewCell class])];
 }
 
 - (void)refresh {
@@ -141,6 +139,11 @@ NSString *const cellIdentifier = @"ItemCell";
     return [self itemForSelectedIndexPath:indexPath] != nil ? indexPath : nil;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:showDetailSegueIdentifier sender:[tableView cellForRowAtIndexPath:indexPath]];
+}
+
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return [self itemForSelectedIndexPath:indexPath] != nil;
@@ -192,9 +195,8 @@ NSString *const cellIdentifier = @"ItemCell";
 		item = [feed objectAtIndex:index];
 	}
 	
-	Cell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-	
-	[cell setData:item type:_type];
+	RuonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([RuonTableViewCell class]) forIndexPath:indexPath];
+    [cell configureWithData:item type:_type];
 	return cell;
 }
 
