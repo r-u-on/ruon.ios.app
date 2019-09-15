@@ -179,6 +179,7 @@ NSString *const cellIdentifier = @"ItemCell";
 	}
 	return nil;
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	int index = (int)[indexPath indexAtPosition: [indexPath length] - 1];

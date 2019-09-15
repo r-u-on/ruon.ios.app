@@ -61,6 +61,7 @@
 		77E6CC6E1AF4CCCA002E8D38 /* umacs.caf in Resources */ = {isa = PBXBuildFile; fileRef = 77E6CC6C1AF4CCCA002E8D38 /* umacs.caf */; };
 		77EA648218867E2600A28401 /* Splash.m in Sources */ = {isa = PBXBuildFile; fileRef = 77EA648118867E2600A28401 /* Splash.m */; };
 		7B05F8482328DF290008FE8B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B05F8472328DF290008FE8B /* LaunchScreen.storyboard */; };
+		9628D6D4232A98D700FC310B /* DetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9628D6D3232A98D700FC310B /* DetailTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,6 +147,8 @@
 		77EA648018867E2600A28401 /* Splash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Splash.h; sourceTree = "<group>"; };
 		77EA648118867E2600A28401 /* Splash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Splash.m; sourceTree = "<group>"; };
 		7B05F8472328DF290008FE8B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		9628D6D2232A98D700FC310B /* DetailTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailTableViewCell.h; sourceTree = "<group>"; };
+		9628D6D3232A98D700FC310B /* DetailTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,6 +239,8 @@
 				771F75EB187898D10054159F /* Colors.m */,
 				771F75ED187943CD0054159F /* DetailViewController.h */,
 				771F75EE187943CD0054159F /* DetailViewController.m */,
+				9628D6D2232A98D700FC310B /* DetailTableViewCell.h */,
+				9628D6D3232A98D700FC310B /* DetailTableViewCell.m */,
 				774DCC3E18D4E7B30077DD5D /* NotificationsRegister.h */,
 				774DCC3F18D4E7B30077DD5D /* NotificationsRegister.m */,
 				774609CE1874A54A00228D4B /* Images.xcassets */,
@@ -451,6 +456,7 @@
 				771F75DE187889AA0054159F /* Group.m in Sources */,
 				774609C11874A54A00228D4B /* AppDelegate.m in Sources */,
 				774E1FBE1874ABBA007F7988 /* LoginView.m in Sources */,
+				9628D6D4232A98D700FC310B /* DetailTableViewCell.m in Sources */,
 				774DCC4018D4E7B30077DD5D /* NotificationsRegister.m in Sources */,
 				771F75E9187898BE0054159F /* CellView.m in Sources */,
 				774609BD1874A54A00228D4B /* main.m in Sources */,

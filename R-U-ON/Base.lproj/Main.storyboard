@@ -264,11 +264,46 @@
         <scene sceneID="Njh-ec-HS4">
             <objects>
                 <tableViewController id="zEj-UG-IMa" customClass="DetailViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="35" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="eAy-IX-0U4">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="eAy-IX-0U4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="detailCell" id="j7i-Bm-haY" customClass="DetailTableViewCell">
+                                <rect key="frame" x="0.0" y="55.333333333333343" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="j7i-Bm-haY" id="0c6-EP-QdI">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DeQ-Wd-6xL">
+                                            <rect key="frame" x="10.000000000000004" y="11.333333333333336" width="50.333333333333343" height="21"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WXa-vP-FLy">
+                                            <rect key="frame" x="325" y="12.333333333333334" width="40" height="19.333333333333329"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="DeQ-Wd-6xL" firstAttribute="leading" secondItem="0c6-EP-QdI" secondAttribute="leading" constant="10" id="2i1-XL-TLi"/>
+                                        <constraint firstAttribute="trailing" secondItem="WXa-vP-FLy" secondAttribute="trailing" constant="10" id="ciJ-eJ-lht"/>
+                                        <constraint firstItem="WXa-vP-FLy" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="DeQ-Wd-6xL" secondAttribute="trailing" constant="8" symbolic="YES" id="mCL-WG-mFw"/>
+                                        <constraint firstItem="DeQ-Wd-6xL" firstAttribute="centerY" secondItem="0c6-EP-QdI" secondAttribute="centerY" id="wR2-0B-wAQ"/>
+                                        <constraint firstItem="WXa-vP-FLy" firstAttribute="centerY" secondItem="0c6-EP-QdI" secondAttribute="centerY" id="xZi-Ev-hYQ"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="nameLabel" destination="DeQ-Wd-6xL" id="mT3-e8-hNo"/>
+                                    <outlet property="valueLabel" destination="WXa-vP-FLy" id="xuK-dE-kaC"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="zEj-UG-IMa" id="Juf-2z-BKz"/>
                             <outlet property="delegate" destination="zEj-UG-IMa" id="d8I-C7-RKm"/>
