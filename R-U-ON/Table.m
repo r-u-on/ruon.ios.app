@@ -129,7 +129,7 @@ NSString *const showDetailSegueIdentifier = @"showDetailSegue";
         if (item)
         {
             DetailViewController *detailViewController = segue.destinationViewController;
-            [detailViewController bindWitRecord:item type:_type];;
+            [detailViewController bindWithRecord:item type:_type];;
         }
     }
 }
