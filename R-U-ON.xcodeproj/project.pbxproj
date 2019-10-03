@@ -357,7 +357,8 @@
 				ORGANIZATIONNAME = ruon;
 				TargetAttributes = {
 					774609AC1874A54A00228D4B = {
-						DevelopmentTeam = LWXCT592NE;
+						DevelopmentTeam = Q744FBMTB9;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -371,6 +372,8 @@
 						};
 					};
 					774609D31874A54A00228D4B = {
+						DevelopmentTeam = Q744FBMTB9;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 774609AC1874A54A00228D4B;
 					};
 				};
@@ -541,8 +544,6 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -596,8 +597,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Distribution";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -622,13 +622,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CODE_SIGN_ENTITLEMENTS = "R-U-ON/R-U-ON.entitlements";
-				DEVELOPMENT_TEAM = LWXCT592NE;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = Q744FBMTB9;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "R-U-ON/R-U-ON-Prefix.pch";
 				INFOPLIST_FILE = "R-U-ON/R-U-ON-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruon.ruon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = com.ruon.dev;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -639,13 +641,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CODE_SIGN_ENTITLEMENTS = "R-U-ON/R-U-ON.entitlements";
-				DEVELOPMENT_TEAM = LWXCT592NE;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = Q744FBMTB9;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "R-U-ON/R-U-ON-Prefix.pch";
 				INFOPLIST_FILE = "R-U-ON/R-U-ON-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruon.ruon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = com.ruon.prod.appstore;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -654,6 +659,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/R-U-ON.app/R-U-ON";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Q744FBMTB9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -668,6 +675,8 @@
 				INFOPLIST_FILE = "R-U-ONTests/R-U-ONTests-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "ruon.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -677,6 +686,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/R-U-ON.app/R-U-ON";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Q744FBMTB9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -687,6 +698,8 @@
 				INFOPLIST_FILE = "R-U-ONTests/R-U-ONTests-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "ruon.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
