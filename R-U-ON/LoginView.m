@@ -9,6 +9,7 @@
 #import "LoginView.h"
 #import "Util.h"
 #import "Settings.h"
+#import <UserNotifications/UserNotifications.h>
 
 @implementation LoginView {
     NSMutableString *xmlItem;
@@ -44,7 +45,7 @@
 
 - (IBAction)openSite:(id)sender {
     NSURL *url = [NSURL URLWithString:@"http://www.r-u-on.com/"];
-    [[UIApplication sharedApplication] openURL:url];
+    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
 
 }
 
@@ -77,8 +78,7 @@
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/resolveGUID?email=%@&password=%@", WWWBASE, urlencode(_email.text), urlencode(_password.text)]];
     NSURLRequest *req = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60];
     
-    [NSURLConnection sendAsynchronousRequest:req queue:[[NSOperationQueue alloc] init]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+    [[NSURLSession.sharedSession dataTaskWithRequest:req completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (error) {
                 [self loginFailed:@"Can't reach the R-U-ON Server"];
@@ -91,9 +91,9 @@
                 } else {
                     [self loginFailed:@"Login Failed"];
                 }
-           }
+            }
         });
-    }];
+    }] resume];
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
@@ -129,16 +129,29 @@
 	NSString *notificationsOn = [Settings get:@"notificationsOn"];
 	if (force || notificationsOn==nil) {
 		UIApplication *application = [UIApplication sharedApplication];
-		NSLog(@"Starting registerForRemoteNotifications");
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeBadge
-                                                                                             |UIUserNotificationTypeSound
-                                                                                             |UIUserNotificationTypeAlert) categories:nil];
-        [application registerUserNotificationSettings:settings];
+        
+        [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:(UNAuthorizationOptionBadge
+                                                                                               | UNAuthorizationOptionSound
+                                                                                               | UNAuthorizationOptionAlert)
+                                                                            completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                                                                                [self registerForRemoteNotification:application];
+                                                                            }];
 	}
 	
 }
 
-
++ (void)registerForRemoteNotification:(UIApplication *)application
+{
+    [[UNUserNotificationCenter currentNotificationCenter] getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
+        if (settings.authorizationStatus == UNAuthorizationStatusAuthorized)
+        {
+            NSLog(@"Starting registerForRemoteNotifications");
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [application registerForRemoteNotifications];
+            });
+        }
+    }];
+}
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
     [self loginFailed:@"Login failed (-1)"];
@@ -149,7 +162,5 @@
     _loginButton.enabled = _password.enabled = _email.enabled = YES;
     [_throbber stopAnimating];
 }
-
-
 
 @end

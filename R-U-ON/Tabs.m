@@ -36,9 +36,6 @@ static Tabs *tabs;
     }
 }
 
-
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.tintColor = MY_TINT;
@@ -51,8 +48,5 @@ static Tabs *tabs;
     tabs = self;
     [Tabs badgeUpdate];
 }
-
-
-
 
 @end

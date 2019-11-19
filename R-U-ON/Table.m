@@ -11,30 +11,22 @@
 #import "Settings.h"
 #import "Feed.h"
 #import "Group.h"
-#import "Cell.h"
+#import "RuonTableViewCell.h"
 #import "DetailViewController.h"
 #import "Tabs.h"
-#define ROW_HEIGHT 60
+
+NSString *const showDetailSegueIdentifier = @"showDetailSegue";
 
 @implementation Table {
-    UIRefreshControl *refresh;
-    UIView *firstRefresh;
     Feed *feed;
     BOOL showGroups;
 }
 
-
 -(void) viewDidLoad {
     [super viewDidLoad];
     
-    // First refresh
-    UIActivityIndicatorView *ai = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    ai.color = [UIColor blackColor];
-    ai.frame = CGRectMake(self.view.frame.size.width/2, 31, 0, 0);
-    [self.view addSubview:ai];
-    ai.transform = CGAffineTransformMakeScale(0.77, 0.77);
-    [ai startAnimating];
-    firstRefresh = ai;
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     [self refresh];
     
 	// Logo
@@ -50,7 +42,7 @@
     } else {
         showGroups = [sgs boolValue];
     }
-	self.tableView.rowHeight = ROW_HEIGHT;
+    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([RuonTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([RuonTableViewCell class])];
 }
 
 - (void)refresh {
@@ -58,45 +50,40 @@
                   [NSString stringWithFormat:@"%@/rss%@?iphone&id=%@",
                    RSSBASE, _type, [Settings get:@"accountid"]]];
     NSURLRequest *req = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60];
-    
-    [NSURLConnection sendAsynchronousRequest:req queue:[[NSOperationQueue alloc] init]
-       completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
-
-           NSHTTPURLResponse *http = (NSHTTPURLResponse*)response;
-           NSInteger code = [http statusCode];
-           
-           dispatch_async(dispatch_get_main_queue(), ^{
-               if (error) {
-                   [self refreshFailed:error.localizedDescription dialog:YES];
-               } else if (code!=200) {
-                   [self refreshFailed:[NSString stringWithFormat:@"%@ %d", @"HTTP Error ", (int)code] dialog:NO];
-               } else {
-                   if (data) {
-                       [self refreshOkay:data];
-                   } else {
-                       [self refreshFailed:@"Login Failed" dialog:NO];
-                   }
-               }
-           });
-        }
-    ];
+    [self.refreshControl beginRefreshing];
+    [[NSURLSession.sharedSession dataTaskWithRequest:req completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSHTTPURLResponse *http = (NSHTTPURLResponse*)response;
+        NSInteger code = [http statusCode];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (error) {
+                [self refreshFailed:error.localizedDescription dialog:YES];
+            } else if (code!=200) {
+                [self refreshFailed:[NSString stringWithFormat:@"%@ %d", @"HTTP Error ", (int)code] dialog:NO];
+            } else {
+                if (data) {
+                    [self refreshOkay:data];
+                } else {
+                    [self refreshFailed:@"Login Failed" dialog:NO];
+                }
+            }
+            [self.refreshControl endRefreshing];
+        });
+    }] resume];
 }
 
 -(void) refreshFailed:(NSString*)err dialog:(BOOL) dialog {
     feed = [Feed feedWithError:err];
     [self.tableView reloadData];
     if (dialog) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Fetch Failed"
-                                                        message:err
-                                                       delegate:nil
-                                              cancelButtonTitle:@"Close"
-                                              otherButtonTitles:nil];
-        [alert show];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Fetch Failed" message:err preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *closeAction = [UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleCancel handler:nil];
+        [alertController addAction:closeAction];
+        [self presentViewController:alertController animated:YES completion:nil];
     }
 }
 
 -(void) refreshOkay:(NSData*) data {
-    [self refreshDone];
     feed = [Feed load:data type:_type];
     [self.tableView reloadData];
     
@@ -115,35 +102,53 @@
 	}
 }
 
-
--(void) refreshDone {
-    if (self.refreshControl) {
-        [self.refreshControl endRefreshing];
+- (nullable NSDictionary *)itemForSelectedIndexPath:(nullable NSIndexPath *)selectedIndexPath
+{
+    if (!selectedIndexPath)
+    {
+        return nil;
+    }
+    NSDictionary *item;
+    int index = (int) [selectedIndexPath indexAtPosition: [selectedIndexPath length] - 1];
+    
+    if (showGroups) {
+        NSArray *groups = [feed groups];
+        Group *group = [groups objectAtIndex:[selectedIndexPath indexAtPosition:0]];
+        item = [[group items] objectAtIndex:index];
     } else {
-        [firstRefresh removeFromSuperview];
-        self.refreshControl = [[UIRefreshControl alloc] init];
-        [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+        item = [feed objectAtIndex:index];
+    }
+    return ![item objectForKey:@"usermessage"] ? item : nil;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:showDetailSegueIdentifier])
+    {
+        NSDictionary *item = [self itemForSelectedIndexPath:self.tableView.indexPathForSelectedRow];
+        if (item)
+        {
+            DetailViewController *detailViewController = segue.destinationViewController;
+            [detailViewController bindWithRecord:item type:_type];;
+        }
     }
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-	NSDictionary *item;
-	int index = (int) [indexPath indexAtPosition: [indexPath length] - 1];
-    
-	if (showGroups) {
-		NSArray *groups = [feed groups];
-		Group *group = [groups objectAtIndex:[indexPath indexAtPosition:0]];
-		item = [[group items] objectAtIndex:index];
-	} else {
-		item = [feed objectAtIndex:index];
-	}
-    
-	if (![item objectForKey:@"usermessage"]) {
-		DetailViewController *detailViewController = [[DetailViewController alloc] initWithData:item type:_type] ;
-		[[self navigationController] pushViewController:detailViewController animated:YES];
-	}
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [self itemForSelectedIndexPath:indexPath] != nil ? indexPath : nil;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:showDetailSegueIdentifier sender:[tableView cellForRowAtIndexPath:indexPath]];
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [self itemForSelectedIndexPath:indexPath] != nil;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	NSInteger sections = 1;
 	if (feed&&showGroups) {
@@ -177,6 +182,7 @@
 	}
 	return nil;
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	int index = (int)[indexPath indexAtPosition: [indexPath length] - 1];
@@ -189,13 +195,8 @@
 		item = [feed objectAtIndex:index];
 	}
 	
-	static NSString *cellIdentifier = @"ItemCell";
-	Cell *cell = (Cell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-	
-	if (cell == nil) {
-		cell = [[Cell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-	}
-	[cell setData:item type:_type];
+	RuonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([RuonTableViewCell class]) forIndexPath:indexPath];
+    [cell configureWithData:item type:_type];
 	return cell;
 }
 

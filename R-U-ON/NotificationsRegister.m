@@ -59,9 +59,13 @@
 }
 
 - (void) message: (NSString *)messageString {
-	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Push Notifications Register" message:messageString
-													   delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil];
-	[alertView show];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Puch Notification Register" message:messageString preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *closeAction = [UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleCancel handler:nil];
+        [alertController addAction:closeAction];
+        
+        [UIApplication.sharedApplication.keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+    });
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{

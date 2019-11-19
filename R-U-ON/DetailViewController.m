@@ -9,7 +9,7 @@
 #import "DetailViewController.h"
 #import "Colors.h"
 #import "Util.h"
-
+#import "DetailTableViewCell.h"
 
 
 #define ROW_HEIGHT 35
@@ -18,7 +18,7 @@
 #define MAIN_FONT_SIZE 18.0
 #define LABEL_HEIGHT 26.0
 
-
+NSString *const detailCellIdentifier = @"detailCell";
 
 NSDictionary *metaData() {
 	static NSDictionary *md = nil;
@@ -81,36 +81,15 @@ NSString *target(NSString *uri) {
                ];
         
         NSURL *url = [NSURL URLWithString:uri];
-        [[UIApplication sharedApplication] openURL:url];
+        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
 	}
 }
 
--(DetailViewController*)initWithData:(NSDictionary*)record type:(NSString*)type {
-	
-	self = [self initWithStyle:UITableViewStyleGrouped];
-	if (self) {
-		meta = [metaData() objectForKey:type];
-		data = record;
-		[self setTitle:[self getData:[meta objectAtIndex:0]]];
-		
-		UIImage *safari = [UIImage imageNamed:@"safari-icon.png"];
-		CGRect rect = {{0,0},{safari.size.width, safari.size.height}};
-		UIButton *button = [[UIButton alloc]initWithFrame:rect];
-		[button setImage:safari forState:UIControlStateNormal];
-		[button setShowsTouchWhenHighlighted:YES];
-		[button addTarget:self action:@selector(toBrowser:) forControlEvents:UIControlEventTouchDown];
-		
-		
-//		UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithImage:safari style:UIBarButtonItemStylePlain target:self action:@selector(toBrowser:)];
-//		[item setWidth:-20];
-		
-		UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:button];
-		[[self navigationItem] setRightBarButtonItem:item];
-		[[self tableView] setRowHeight:ROW_HEIGHT];
-        UIEdgeInsets ei = {0,0,0,0};
-		[[self tableView] setSeparatorInset:ei];
-	}
-	return self;
+- (void)bindWithRecord:(NSDictionary*)record type:(NSString*)type
+{
+    meta = [metaData() objectForKey:type];
+    data = record;
+    self.title = [self getData:[meta objectAtIndex:0]];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -122,56 +101,12 @@ NSString *target(NSString *uri) {
 	return [[meta objectAtIndex:section+1] count] - 1;
 }
 
-
-#define NAME_TAG  1
-#define VALUE_TAG 2
-
-
-- (UITableViewCell*) cellWithIdentifier:(NSString*)identifier {
-	CGRect rect;
-	
-	int width = self.view.bounds.size.width;// <=400?290:450;
-	
-	rect = CGRectMake(0.0, 0.0, width, ROW_HEIGHT);
-	
-	UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-
-	UILabel *label;
-	
-	rect = CGRectMake(PADDING, (ROW_HEIGHT - LABEL_HEIGHT) / 2.0, COL2, LABEL_HEIGHT);
-	label = [[UILabel alloc] initWithFrame:rect];
-	label.tag = NAME_TAG;
-	label.font = [UIFont boldSystemFontOfSize:MAIN_FONT_SIZE];
-	label.adjustsFontSizeToFitWidth = YES;
-	[cell.contentView addSubview:label];
-	label.highlightedTextColor = [UIColor whiteColor];
-	
-	rect = CGRectMake(COL2+PADDING, (ROW_HEIGHT - LABEL_HEIGHT) / 2.0, width-COL2-2*PADDING, LABEL_HEIGHT);
-	label = [[UILabel alloc] initWithFrame:rect];
-	label.tag = VALUE_TAG;
-	label.font = [UIFont systemFontOfSize:MAIN_FONT_SIZE];
-	label.adjustsFontSizeToFitWidth = YES;
-	label.textAlignment = NSTextAlignmentRight;
-	[cell.contentView addSubview:label];
-	label.highlightedTextColor = [UIColor whiteColor];
-	
-	return cell;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-	static NSString *cellIdentifier;
-	cellIdentifier =  [[self view] bounds].size.width <=400 ? @"dvc_p" : @"dvc_l";
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-	if (cell == nil) {
-		cell = [self cellWithIdentifier:cellIdentifier];
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;
-	}
-	
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    DetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:detailCellIdentifier forIndexPath:indexPath];
+    
 	NSString *key = [[meta objectAtIndex:[indexPath section]+1] objectAtIndex:[indexPath row]+1];
 	NSString *value = [data objectForKey:key];
-	
-	UILabel *label;
 	
 	UIColor *background = [UIColor clearColor];
 	if ([key isEqualToString:@"Severity"]) {
@@ -182,33 +117,21 @@ NSString *target(NSString *uri) {
 			background = c;
 		}
 	}
+    
+	[cell.nameLabel setText:key];
+	[cell.nameLabel setBackgroundColor:background];
 
-	label = (UILabel *)[cell viewWithTag:NAME_TAG];
-	[label setText:key];
-	[label setBackgroundColor:background];
-
-	label = (UILabel *)[cell viewWithTag:VALUE_TAG];
-	[label setText:value];
-	[label setBackgroundColor:background];
+	[cell.valueLabel setText:value];
+	[cell.valueLabel setBackgroundColor:background];
 	
 	[[cell contentView] setBackgroundColor:background];
 	
 	return cell;
 }
 
-- (void) setNeedDisplay {
-   [[self tableView] reloadData];
-}
-
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	
 	return [self getData:[[meta objectAtIndex:section+1] objectAtIndex:0]];
 }
-
-
-
-
-
-
 
 @end
