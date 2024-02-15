@@ -64,7 +64,24 @@
         UIAlertAction *closeAction = [UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleCancel handler:nil];
         [alertController addAction:closeAction];
         
-        [UIApplication.sharedApplication.keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+        UIWindow *keyWindow = nil;
+        NSSet *connectedScenes = UIApplication.sharedApplication.connectedScenes;
+        for (UIScene *scene in connectedScenes) {
+            if ([scene isKindOfClass:[UIWindowScene class]]) {
+                UIWindowScene *windowScene = (UIWindowScene *)scene;
+                for (UIWindow *window in windowScene.windows) {
+                    if (window.isKeyWindow) {
+                        keyWindow = window;
+                        break;
+                    }
+                }
+            }
+            if (keyWindow != nil) {
+                break;
+            }
+        }
+                
+        [keyWindow.rootViewController.presentedViewController presentViewController:alertController animated:YES completion:nil];
     });
 }
 
