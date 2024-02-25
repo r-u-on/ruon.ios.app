@@ -20,7 +20,7 @@
 
 NSString *const detailCellIdentifier = @"detailCell";
 
-NSDictionary *metaData() {
+NSDictionary *metaData(void) {
 	static NSDictionary *md = nil;
 	if (md==nil) {
 		md = [[NSDictionary alloc] initWithObjectsAndKeys:
